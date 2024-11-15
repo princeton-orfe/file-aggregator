@@ -3,8 +3,41 @@ param (
     [string]$TargetFolder,       # The destination folder to copy the JPEGs
     [switch]$DryRun,             # If present, only list what would be copied
     [datetime]$StartDate,        # Optional: Filter files last modified on or after this date
-    [datetime]$EndDate           # Optional: Filter files last modified on or before this date
+    [datetime]$EndDate,          # Optional: Filter files last modified on or before this date
+    [switch]$Help                # If present, display the help message
 )
+
+# Function to display help message
+function Show-Help {
+    Write-Output @"
+This script searches recursively for JPEG files in a specified directory and copies them to a target directory.
+Only JPEG files with common portrait or landscape dimensions are considered.
+    
+Parameters:
+  -SearchBase <string>  : The base directory to search for JPEG files. Required.
+  -TargetFolder <string>: The destination directory where files will be copied. Required.
+  -DryRun               : (Optional) If specified, lists files that would be copied without actually copying them.
+  -StartDate <datetime> : (Optional) Filters files modified on or after this date.
+  -EndDate <datetime>   : (Optional) Filters files modified on or before this date.
+  -Help                 : Displays this help message.
+
+Usage Examples:
+  1. Search and copy JPEGs:
+     .\Copy-JPEGs.ps1 -SearchBase "C:\Source" -TargetFolder "D:\Destination"
+
+  2. Perform a dry run with date filtering:
+     .\Copy-JPEGs.ps1 -SearchBase "C:\Source" -TargetFolder "D:\Destination" -DryRun -StartDate "2024-01-01" -EndDate "2024-12-31"
+
+  3. Display help:
+     .\Copy-JPEGs.ps1 -Help
+"@
+}
+
+# Display help if the -Help switch is used or if no parameters are provided
+if ($Help -or (-not $PSBoundParameters)) {
+    Show-Help
+    exit 0
+}
 
 # Function to validate input arguments
 function Validate-Arguments {
@@ -50,10 +83,10 @@ Validate-Arguments
 # Search for files
 $files = Get-ChildItem -Path $SearchBase -Recurse -File -Include *.jpg, *.jpeg
 
+# Apply date filters
 if ($StartDate) {
     $files = $files | Where-Object { $_.LastWriteTime -ge $StartDate }
 }
-
 if ($EndDate) {
     $files = $files | Where-Object { $_.LastWriteTime -le $EndDate }
 }
