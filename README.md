@@ -1,1 +1,1 @@
-# photo-aggregator
+# ORFE Photo Aggregator
