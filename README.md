@@ -1,4 +1,4 @@
-# ORFE Photo Aggregator
+# Photo Aggregator
 
 This script searches recursively for JPEG files in a specified directory and copies them to a target directory.
 Only JPEG files with common portrait or landscape dimensions are considered.
