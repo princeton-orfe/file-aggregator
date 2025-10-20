@@ -1,6 +1,6 @@
 ## Purpose
 
-This repo is a small PowerShell utility (single-script) that finds JPEG files and copies them to a target folder based on dimensions and optional date filters. These instructions explain the project's structure, important implementation details, and concrete examples so an AI coding agent can be productive immediately.
+This repo is a small PowerShell utility (single-script) that finds and aggregates files of various types (such as images) and copies them to a target folder based on dimensions and optional date filters. These instructions explain the project's structure, important implementation details, and concrete examples so an AI coding agent can be productive immediately.
 
 ## Big picture (what edits usually touch)
 - Single entrypoint: `file-aggregator.ps1` — all logic lives in this file.
