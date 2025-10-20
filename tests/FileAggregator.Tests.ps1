@@ -14,7 +14,12 @@ Describe "File Aggregator basic behavior" {
         Set-Content -Path (Join-Path $src 'image.jpg') -Value ''
 
     # Leave script resolution to each test to avoid Pester discovery-time issues.
-    $global:scriptPath = $null
+    # Historically $global:scriptPath was set here to aid script discovery at
+    # Pester discovery-time. Tests now resolve the script file at runtime
+    # (each It block uses Get-ChildItem and runs pwsh -File), so the global
+    # variable is unused. Keep this commented note in case of future
+    # discovery-time troubleshooting.
+    # $global:scriptPath = $null
         $global:src = $src
         $global:dest = $dest
     }
