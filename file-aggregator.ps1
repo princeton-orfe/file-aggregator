@@ -21,7 +21,7 @@ This script searches for files by extensions and either copies them to a target 
 "@
 }
 
-if ($Help -or (-not $PSBoundParameters)) {
+if ($Help -or ($PSBoundParameters.Count -eq 0)) {
     Show-Help
     exit 0
 }
