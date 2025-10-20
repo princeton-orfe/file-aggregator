@@ -13,7 +13,7 @@ Describe "File Aggregator basic behavior" {
         Set-Content -Path (Join-Path $src 'b.log') -Value 'log'
         Set-Content -Path (Join-Path $src 'image.jpg') -Value ''
 
-    # Leave script resolution to each test to avoid Pester discovery-time issues
+    # Leave script resolution to each test to avoid Pester discovery-time issues.
     $global:scriptPath = $null
         $global:src = $src
         $global:dest = $dest
