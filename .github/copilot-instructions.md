@@ -26,7 +26,6 @@ This repo is a small PowerShell utility (single-script) that finds and aggregate
 - Preserve output functions: script uses `Write-Output`, `Write-Warning`, and `Write-Error`. Tests or logging changes should respect these channels.
 
 ## Observed repo “idiosyncrasies” and gotchas
-- README vs actual file name: README examples should reference `file-aggregator.ps1`.
 - Flat copy & overwrites: the script copies files using only the filename (no subfolders). This means identical filenames from different directories will overwrite each other at the destination.
 - Platform dependencies: `System.Drawing.Image` calls may fail on non-Windows unless native support (libgdiplus) is installed; the script handles failures by warning and skipping files but CI or tests that rely on image inspection may be flaky on macOS/Linux.
 
