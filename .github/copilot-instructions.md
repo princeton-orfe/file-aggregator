@@ -3,9 +3,9 @@
 This repo is a small PowerShell utility (single-script) that finds JPEG files and copies them to a target folder based on dimensions and optional date filters. These instructions explain the project's structure, important implementation details, and concrete examples so an AI coding agent can be productive immediately.
 
 ## Big picture (what edits usually touch)
-- Single entrypoint: `photo-aggregator.ps1` — all logic lives in this file.
+- Single entrypoint: `file-aggregator.ps1` — all logic lives in this file.
 - Flow: parameter parsing (param block) → argument validation (`Validate-Arguments`) → file discovery (`Get-ChildItem`) → optional date filtering → image validation (`Is-PortraitOrLandscape`) → copy or dry-run (`Copy-Item` / `Write-Output`).
-- README: `README.md` contains usage examples but references `Copy-JPEGs.ps1` in examples — prefer `photo-aggregator.ps1` (actual filename).
+- README: `README.md` contains usage examples — prefer `file-aggregator.ps1` (actual filename).
 
 ## Key implementation details to preserve or consider
 - Parameters: `-SearchBase` and `-TargetFolder` are required; `-DryRun`, `-StartDate`, `-EndDate`, `-Help` are optional.
@@ -15,9 +15,9 @@ This repo is a small PowerShell utility (single-script) that finds JPEG files an
 
 ## Concrete examples (how to run / validate)
 - Windows (PowerShell):
-  .\photo-aggregator.ps1 -SearchBase "C:\Source" -TargetFolder "D:\Destination"
+  .\file-aggregator.ps1 -SearchBase "C:\Source" -TargetFolder "D:\Destination"
 - macOS / Linux (PowerShell Core installed as `pwsh`):
-  pwsh -File ./photo-aggregator.ps1 -SearchBase "/Users/me/Pictures" -TargetFolder "/tmp/dest" -DryRun
+  pwsh -File ./file-aggregator.ps1 -SearchBase "/Users/me/Pictures" -TargetFolder "/tmp/dest" -DryRun
 - Dry-run is the primary quick test. Look for lines beginning with `Dry Run:` in output.
 
 ## Common edits and where to look
@@ -26,7 +26,7 @@ This repo is a small PowerShell utility (single-script) that finds JPEG files an
 - Preserve output functions: script uses `Write-Output`, `Write-Warning`, and `Write-Error`. Tests or logging changes should respect these channels.
 
 ## Observed repo “idiosyncrasies” and gotchas
-- README vs actual file name: README examples show `Copy-JPEGs.ps1`; file present is `photo-aggregator.ps1`. Use the real filename when editing or running examples.
+- README vs actual file name: README examples should reference `file-aggregator.ps1`.
 - Flat copy & overwrites: the script copies files using only the filename (no subfolders). This means identical filenames from different directories will overwrite each other at the destination.
 - Platform dependencies: `System.Drawing.Image` calls may fail on non-Windows unless native support (libgdiplus) is installed; the script handles failures by warning and skipping files but CI or tests that rely on image inspection may be flaky on macOS/Linux.
 
@@ -36,7 +36,7 @@ This repo is a small PowerShell utility (single-script) that finds JPEG files an
 - Overwrite checks: run two source folders that contain same filename and verify destination to confirm current overwrite behavior.
 
 ## Files of interest
-- `photo-aggregator.ps1` — primary source of truth for behavior and CLI.
+`file-aggregator.ps1` — primary source of truth for behavior and CLI.
 - `README.md` — user-facing examples and parameter descriptions (update when changing CLI).
 - `LICENSE.md` — MIT license (keep intact if adding new files).
 

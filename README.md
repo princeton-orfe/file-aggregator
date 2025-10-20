@@ -4,34 +4,7 @@ This repository contains `file-aggregator.ps1`, a flexible PowerShell utility th
 
 Features:
 - Search by file extensions (e.g. jpg, png, txt, csv).
-- Optional image-dimension filtering for JPEG files (portrait/landscape criteria preserved from the original photo script).
-- Reporting mode to write a CSV with file metadata (includes LastAccessTime).
-- Dry-run mode to preview actions without changing files.
-
-## Parameters
-
 ```
- -SearchBase <string>       : The base directory to search for files. Required.
- -TargetFolder <string>     : The destination directory where files will be copied. Required unless using -Report.
- -FileTypes <string[]>      : One or more file extensions (without dot). Default: jpg,jpeg
- -DryRun                   : (Optional) If specified, lists files that would be copied without actually copying them.
- -StartDate <datetime>     : (Optional) Filters files last modified on or after this date.
- -EndDate <datetime>       : (Optional) Filters files last modified on or before this date.
- -Report                   : (Optional) If specified, produce a CSV report instead of copying files.
- -ReportPath <string>      : Path to write CSV when using -Report. Required when -Report is set.
- -NoImageDimensionFilter   : (Optional) Disable the image portrait/landscape filter for image types.
- -Help                     : Displays this help message.
-```
-
-Additional options:
-
-```
- -PreserveStructure       : (Optional) Preserve subdirectory structure relative to SearchBase when copying files.
- -PreserveExisting        : (Optional) Do not overwrite existing files; rename destination with a numeric suffix instead.
- -PreserveExisting        : (Optional) Do not overwrite existing files; rename destination by appending a timestamp suffix (e.g. file_20251020123045.txt).
-```
-
-## Usage Examples
 
 1. Search and copy JPEGs (preserves original behavior):
    `pwsh -File ./file-aggregator.ps1 -SearchBase "/path/to/src" -TargetFolder "/path/to/dest"`
