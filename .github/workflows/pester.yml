@@ -1,0 +1,19 @@
+name: Pester Tests
+
+on:
+  push:
+    branches: [ main, file-aggregator ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Pester
+        run: |
+          pwsh -Command "Install-Module -Name Pester -Force -Scope CurrentUser -AllowClobber"
+      - name: Run tests
+        run: |
+          pwsh -NoProfile -Command "Import-Module Pester; Invoke-Pester -Script ./tests/FileAggregator.Tests.ps1"
