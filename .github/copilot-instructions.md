@@ -26,7 +26,9 @@ This repo is a small PowerShell utility (single-script) that finds and aggregate
 - Preserve output functions: script uses `Write-Output`, `Write-Warning`, and `Write-Error`. Tests or logging changes should respect these channels.
 
 ## Observed repo “idiosyncrasies” and gotchas
-- Flat copy & overwrites: the script copies files using only the filename (no subfolders). This means identical filenames from different directories will overwrite each other at the destination.
+- Copy modes & overwrites:
+  - By default (flat copy), the script copies files using only the filename (no subfolders). This means identical filenames from different directories will overwrite each other at the destination.
+  - If the `-PreserveStructure` option is used, the script recreates the source directory structure within the target folder, preventing overwrites from files with the same name in different directories.
 - Platform dependencies: `System.Drawing.Image` calls may fail on non-Windows unless native support (libgdiplus) is installed; the script handles failures by warning and skipping files but CI or tests that rely on image inspection may be flaky on macOS/Linux.
 
 ## Debugging tips (what to run and what to look for)
